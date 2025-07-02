@@ -20,3 +20,4 @@ end
 
 loadstring(game:HttpGet(module))()
 queue_on_teleport(game:HttpGet(module))
+getgenv().script_key = script_key or "none"
