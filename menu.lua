@@ -6509,11 +6509,13 @@ function Library:CreateWindow(WindowInfo)
 
         if Library.Toggled and not Library.IsMobile then
             local OldMouseIconEnabled = UserInputService.MouseIconEnabled
+			local old_behavior_state = UserInputService.MouseBehavior
             pcall(function()
                 RunService:UnbindFromRenderStep("ShowCursor")
             end)
             RunService:BindToRenderStep("ShowCursor", Enum.RenderPriority.Last.Value, function()
                 UserInputService.MouseIconEnabled = not Library.ShowCustomCursor
+				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
 
 				Cursor.Visible = false
 
@@ -6538,6 +6540,7 @@ function Library:CreateWindow(WindowInfo)
 
                 if not (Library.Toggled and ScreenGui and ScreenGui.Parent) then
                     UserInputService.MouseIconEnabled = OldMouseIconEnabled
+					UserInputService.MouseBehavior = old_behavior_state
                     Cursor.Visible = false
 					custom_cursor.Visible = false
 					custom_outline.Visible = false
