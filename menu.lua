@@ -6517,10 +6517,11 @@ function Library:CreateWindow(WindowInfo)
 
 				Cursor.Visible = false
 
-				custom_cursor.PointA = Vector2.new(Mouse.X, Mouse.Y)
-				custom_cursor.PointB = Vector2.new(Mouse.X + CURSOR_MAX, Mouse.Y + CURSOR_LOW)
-				custom_cursor.PointC = Vector2.new(Mouse.X + CURSOR_MID, Mouse.Y + CURSOR_MID)
-				custom_cursor.PointD = Vector2.new(Mouse.X + CURSOR_LOW, Mouse.Y + CURSOR_MAX)
+				local mouse_pos = UserInputService:GetMouseLocation()
+				custom_cursor.PointA = Vector2.new(mouse_pos.X, mouse_pos.Y)
+				custom_cursor.PointB = Vector2.new(mouse_pos.X + CURSOR_MAX, mouse_pos.Y + CURSOR_LOW)
+				custom_cursor.PointC = Vector2.new(mouse_pos.X + CURSOR_MID, mouse_pos.Y + CURSOR_MID)
+				custom_cursor.PointD = Vector2.new(mouse_pos.X + CURSOR_LOW, mouse_pos.Y + CURSOR_MAX)
 
 				custom_outline.PointA = custom_cursor.PointA
 				custom_outline.PointB = custom_cursor.PointB
@@ -6538,6 +6539,8 @@ function Library:CreateWindow(WindowInfo)
                 if not (Library.Toggled and ScreenGui and ScreenGui.Parent) then
                     UserInputService.MouseIconEnabled = OldMouseIconEnabled
                     Cursor.Visible = false
+					custom_cursor.Visible = false
+					custom_outline.Visible = false
                     RunService:UnbindFromRenderStep("ShowCursor")
                 end
             end)
