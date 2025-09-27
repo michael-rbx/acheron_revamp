@@ -402,7 +402,40 @@ local SaveManager = {} do
         local section = tab:AddRightGroupbox("configs", "folder-cog")
 
         section:AddInput("SaveManager_ConfigName",    { Text = "config name" })
-        section:AddButton("create config", function()
+
+        tabs.home.window:AddButton({
+            Text = 'unload',
+            Func = function()
+                client:unload()
+            end,
+            DoubleClick = true,
+            Tooltip = 'unloads the cheat'
+        })
+
+        section:AddButton({
+            Text = "create config",
+            DoubleClick = true,
+
+            Func = function()
+                local name = self.Library.Options.SaveManager_ConfigName.Value
+
+                if name:gsub(" ", "") == "" then
+                    return self.Library:Notify("invalid config name (empty)", 2)
+                end
+
+                local success, err = self:Save(name)
+                if not success then
+                    return self.Library:Notify("failed to create config: " .. err)
+                end
+
+                self.Library:Notify(string.format("created config %q", name))
+
+                self.Library.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
+                self.Library.Options.SaveManager_ConfigList:SetValue(nil)
+            end,
+        })
+
+        --[[section:AddButton("create config", function()
             local name = self.Library.Options.SaveManager_ConfigName.Value
 
             if name:gsub(" ", "") == "" then
@@ -418,11 +451,11 @@ local SaveManager = {} do
 
             self.Library.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
             self.Library.Options.SaveManager_ConfigList:SetValue(nil)
-        end)
+        end)]]
 
         section:AddDivider()
 
-        section:AddDropdown("SaveManager_ConfigList", { Text = "config list", Values = self:RefreshConfigList(), AllowNull = true })
+        section:AddDropdown("SaveManager_ConfigList", { Text = "configs", Values = self:RefreshConfigList(), AllowNull = true })
         section:AddButton("load config", function()
             local name = self.Library.Options.SaveManager_ConfigList.Value
 
@@ -433,7 +466,25 @@ local SaveManager = {} do
 
             self.Library:Notify(string.format("loaded config %q", name))
         end)
-        section:AddButton("save config", function()
+
+        section:AddButton({
+            Text = "save config",
+            DoubleClick = true,
+
+            Func = function()
+                local name = self.Library.Options.SaveManager_ConfigList.Value
+
+                local success, err = self:Save(name)
+                if not success then
+                    return self.Library:Notify("failed to save config: " .. err)
+                end
+
+                self.Library:Notify(string.format("saved config %q", name))
+            end,
+        })
+
+
+        --[[section:AddButton("save config", function()
             local name = self.Library.Options.SaveManager_ConfigList.Value
 
             local success, err = self:Save(name)
@@ -442,9 +493,27 @@ local SaveManager = {} do
             end
 
             self.Library:Notify(string.format("saved config %q", name))
-        end)
+        end)]]
 
-        section:AddButton("delete config", function()
+        section:AddButton({
+            Text = "delete config",
+            DoubleClick = true,
+
+            Func = function()
+                local name = self.Library.Options.SaveManager_ConfigList.Value
+
+                local success, err = self:Delete(name)
+                if not success then
+                    return self.Library:Notify("failed to delete config: " .. err)
+                end
+
+                self.Library:Notify(string.format("deleted config %q", name))
+                self.Library.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
+                self.Library.Options.SaveManager_ConfigList:SetValue(nil)
+            end,
+        })
+
+        --[[section:AddButton("delete config", function()
             local name = self.Library.Options.SaveManager_ConfigList.Value
 
             local success, err = self:Delete(name)
@@ -455,7 +524,7 @@ local SaveManager = {} do
             self.Library:Notify(string.format("deleted config %q", name))
             self.Library.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
             self.Library.Options.SaveManager_ConfigList:SetValue(nil)
-        end)
+        end)]]
 
         section:AddButton("refresh list", function()
             self.Library.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
