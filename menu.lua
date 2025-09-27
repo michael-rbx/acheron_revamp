@@ -3531,6 +3531,7 @@ do
             Size = UDim2.new(1, 0, 0, 39),
             Visible = Input.Visible,
             Parent = Container,
+            ClipsDescendants = true,
         })
 
         local Label = New("TextLabel", {
@@ -3562,6 +3563,10 @@ do
             TextXAlignment = Enum.TextXAlignment.Left,
             Parent = Holder,
         })
+
+        if not boof then
+            Box.TextSize = 18
+        end
 
         New("UIPadding", {
             PaddingBottom = UDim.new(0, 3),
