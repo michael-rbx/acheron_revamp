@@ -72,7 +72,7 @@ local Library = {
     Signals = {},
     UnloadSignals = {},
 
-    MinSize = Vector2.new(720, 600),
+    MinSize = Vector2.new(480, 360),
     DPIScale = 1,
     CornerRadius = 4,
 
@@ -3553,7 +3553,7 @@ do
             Size = UDim2.new(1, 0, 0, 21),
             Text = Input.Value,
             TextEditable = not Input.Disabled,
-            TextScaled = Info.TextScaled or true,
+            TextScaled = Info.TextScaled ~= nil and Info.TextScaled or true
             TextXAlignment = Enum.TextXAlignment.Left,
             Parent = Holder,
         })
