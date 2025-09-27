@@ -3553,7 +3553,7 @@ do
             Size = UDim2.new(1, 0, 0, 21),
             Text = Input.Value,
             TextEditable = not Input.Disabled,
-            TextScaled = true,
+            TextScaled = Info.TextScaled or true,
             TextXAlignment = Enum.TextXAlignment.Left,
             Parent = Holder,
         })
