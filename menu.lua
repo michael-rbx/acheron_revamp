@@ -3565,7 +3565,7 @@ do
         })
 
         if not boof then
-            Box.TextSize = 16
+            Box.TextSize = 14
         end
 
         New("UIPadding", {
