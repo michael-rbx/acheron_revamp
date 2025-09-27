@@ -3542,6 +3542,11 @@ do
             Parent = Holder,
         })
 
+        local boof = true
+        if Info.TextScaled ~= nil then
+            boof = Info.TextScaled
+        end
+
         local Box = New("TextBox", {
             AnchorPoint = Vector2.new(0, 1),
             BackgroundColor3 = "MainColor",
@@ -3553,7 +3558,7 @@ do
             Size = UDim2.new(1, 0, 0, 21),
             Text = Input.Value,
             TextEditable = not Input.Disabled,
-            TextScaled = Info.TextScaled ~= nil and Info.TextScaled or true,
+            TextScaled = boof,
             TextXAlignment = Enum.TextXAlignment.Left,
             Parent = Holder,
         })
