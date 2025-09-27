@@ -403,15 +403,6 @@ local SaveManager = {} do
 
         section:AddInput("SaveManager_ConfigName",    { Text = "config name" })
 
-        tabs.home.window:AddButton({
-            Text = 'unload',
-            Func = function()
-                client:unload()
-            end,
-            DoubleClick = true,
-            Tooltip = 'unloads the cheat'
-        })
-
         section:AddButton({
             Text = "create config",
             DoubleClick = true,
