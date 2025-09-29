@@ -6415,6 +6415,13 @@ function Library:CreateWindow(WindowInfo)
 
                 Data.Callback(true, Box.Text)
             end)
+
+            local ret = {}
+            function ret:get_key()
+                return Box.Text or "none"
+            end
+
+            return ret
         end
 
         function Tab:Resize() end
