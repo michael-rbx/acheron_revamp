@@ -27,6 +27,17 @@ local Buttons = {}
 local Toggles = {}
 local Options = {}
 
+local custom_cursor = Drawing.new('Quad')
+custom_cursor.Thickness = 1
+custom_cursor.Filled = true
+custom_cursor.Visible = false
+
+local custom_outline = Drawing.new('Quad')
+custom_outline.Thickness = 1
+custom_outline.Filled = false
+custom_outline.Color = Color3.fromRGB(0, 0, 0)
+custom_outline.Visible = false
+
 local Library = {
     LocalPlayer = LocalPlayer,
     DevicePlatform = nil,
@@ -1825,6 +1836,14 @@ function Library:Unload()
 
     for _, Callback in pairs(Library.UnloadSignals) do
         Library:SafeCallback(Callback)
+    end
+
+    if custom_cursor then
+        custom_cursor:Destroy()
+    end
+
+    if custom_outline then
+        custom_outline:Destroy()
     end
 
     Library.Unloaded = true
@@ -6503,17 +6522,6 @@ function Library:CreateWindow(WindowInfo)
 	local CURSOR_MAX = 18
 	local CURSOR_MID = 8
 	local CURSOR_LOW = 4
-
-	local custom_cursor = Drawing.new('Quad')
-	custom_cursor.Thickness = 1
-	custom_cursor.Filled = true
-	custom_cursor.Visible = false
-
-	local custom_outline = Drawing.new('Quad')
-	custom_outline.Thickness = 1
-	custom_outline.Filled = false
-	custom_outline.Color = Color3.fromRGB(0, 0, 0)
-	custom_outline.Visible = false
 
     function Library:Toggle(Value: boolean?)
         if typeof(Value) == "boolean" then
